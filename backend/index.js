@@ -29,8 +29,8 @@ app.post('/register', async (req,res)=>{
 const {name,email,password}=req.body;
 
 //check all data should exist or not
-if(!name && !email && !password){
-    return res.statusCode(400).send("Please enter all the required Fields!");
+if(!(name && email && password)){
+    return res.status(400).send("Please enter all the required Fields!");
 }
 
 //check if user already is exist or not
@@ -71,6 +71,18 @@ catch(error){
 });
 
 
+app.post('/login', async (req,res)=>{
+
+  try{
+    const {email,password}=req.body;
+
+
+  }
+  catch(error){
+
+  }
+
+});
 
 app.listen(PORT,()=>{
     console.log("Server listening on port 8080");
