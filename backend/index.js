@@ -5,6 +5,7 @@ const User = require("./model/User");
 const bcrypt=require("bcryptjs");
 const jwt=require("jsonwebtoken");
 const app=express();
+const cookieParser=require('cookie-parser');
 
 const PORT=process.env.PORT || 8000;
 
@@ -75,6 +76,49 @@ app.post('/login', async (req,res)=>{
 
   try{
     const {email,password}=req.body;
+
+    //check all data should exist 
+
+    if(!(email && password)){
+      return res.status(400).send("Pls enter all the required fields")
+    }
+
+    //check if user is already exists or not in the database
+    const user=await User.findOne({email});
+
+    if(!user){
+        return res.status(200).send("User with this mail not  exists!");
+    }
+
+      //match the password
+
+      const enteredPassword=await bcrypt.compare(password,user.password);
+
+      if(!enteredPassword){
+        return res.status(400).send("Password is incorrect!");
+      }
+
+
+
+       //generate a jwt token and sent it
+  const token =jwt.sign({id:user._id,email},process.env.SECRET_KEY,{
+    expiresIn: '1h'
+  });
+  user.token=token;
+  user.password=undefined;
+
+  //store cookies in the browser
+  const options={
+    expires: new Date(Date.now()+1*24*60*60*1000),
+    httpOnly:true, //only manipulate by server not by the client or user or frontend
+  };
+
+  //send the token
+  res.status(200).cookie("token",token,options).json({
+    message:"You have Successfully Logged in!",
+    success:true,
+    token,
+  });
 
 
   }
