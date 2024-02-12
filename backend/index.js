@@ -2,6 +2,7 @@ const express= require("express");
 require("dotenv").config();
 const {DBConnection}=require('./database/db');
 const User = require("./model/User");
+const Problem=require("./model/Problem.js");
 const bcrypt=require("bcryptjs");
 const jwt=require("jsonwebtoken");
 const app=express();
@@ -127,6 +128,47 @@ app.post('/login', async (req,res)=>{
   }
 
 });
+
+
+//Problem add api
+app.post('/addProblem', async (req,res)=>{
+
+  try{
+
+  
+
+//get all the data from frontend
+const {problem_name,description,constraint,input,output,userId,testcase}=req.body;
+
+//check all data should exist or not
+if(!(problem_name && description && constraint&&input&&output)){
+  return res.status(400).send("Please enter all the required Fields!");
+}
+
+
+
+
+//save the user data in db
+const problemData=await Problem.create({
+  problem_name,description,constraint,input,output,userId,testcase
+});
+
+
+
+
+res.status(200).json({
+  message:"You have Successfully add one milestone!",
+  //userData
+});
+
+}
+catch(error){
+  console.log("Error:" + error.message);
+}
+
+
+});
+
 
 app.listen(PORT,()=>{
     console.log("Server listening on port 8080");
