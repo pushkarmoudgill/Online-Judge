@@ -6,7 +6,10 @@ const Problem=require("./model/Problem.js");
 const bcrypt=require("bcryptjs");
 const jwt=require("jsonwebtoken");
 const app=express();
+
 const cookieParser=require('cookie-parser');
+const{generateFile}=require('./generateFile.js')
+
 
 const PORT=process.env.PORT || 8000;
 
@@ -165,6 +168,34 @@ res.status(200).json({
 catch(error){
   console.log("Error:" + error.message);
 }
+
+
+});
+
+app.post("/run",async(req,res)=>{
+const language=req.body.language;
+const code=req.body.code;
+
+if(!language){
+  return res.status(400).send("Please choose language!");
+}
+if(!code){
+  return res.status(400).send("Empty code body");
+}
+
+try{
+const filepath=await generateFile(language,code);
+const output = await executeCpp(filepath);
+        res.json({ filepath, output });
+
+}
+catch(error){
+  res.status(500).json({error: error});
+}
+
+
+
+
 
 
 });
