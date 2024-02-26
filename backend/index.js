@@ -8,7 +8,8 @@ const jwt=require("jsonwebtoken");
 const app=express();
 
 const cookieParser=require('cookie-parser');
-const{generateFile}=require('./generateFile.js')
+const{generateFile}=require('./generateFile.js');
+const{executeCpp}=require('./executeCpp.js')
 
 
 const PORT=process.env.PORT || 8000;

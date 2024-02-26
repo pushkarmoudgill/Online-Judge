@@ -10,9 +10,9 @@ if(!fs.existsSync(dirCode)){
 
 const generateFile=async(format,content)=>{
 const jobID=uuid();
-console.log(jobID);
+//console.log(jobID);
 const filename = `${jobID}.${format}`;
-console.log(filename);
+//console.log(filename);
 
 const filePath=path.join(dirCode,filename);
 await fs.writeFileSync(filePath,content);
