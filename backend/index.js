@@ -9,7 +9,8 @@ const app=express();
 
 const cookieParser=require('cookie-parser');
 const{generateFile}=require('./generateFile.js');
-const{executeCpp}=require('./executeCpp.js')
+const{executeCpp}=require('./executeCpp.js');
+const{executeJava}=require('./executeJava.js');
 
 
 const PORT=process.env.PORT || 8000;
@@ -186,7 +187,14 @@ if(!code){
 
 try{
 const filepath=await generateFile(language,code);
-const output = await executeCpp(filepath);
+var output=""
+if(req.body.language==="cpp"){
+ output = await executeCpp(filepath);
+}
+else if(req.body.language==="java"){
+
+   output = await executeJava(filepath);
+}
         res.json({ filepath, output });
 
 }
