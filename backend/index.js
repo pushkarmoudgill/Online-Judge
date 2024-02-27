@@ -1,4 +1,5 @@
 const express= require("express");
+const cors=require("cors");
 require("dotenv").config();
 const {DBConnection}=require('./database/db');
 const User = require("./model/User");
@@ -17,6 +18,7 @@ const PORT=process.env.PORT || 8000;
 
 //middlewares
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({extended: true}));
 
 DBConnection();

@@ -8,19 +8,24 @@ import SignUp from './components/SignUp';
 
 function App() {
   const [count, setCount] = useState(0)
+  
 
   return (
     <>
-    <div className="h-screen bg-slate-500">
+    <div >
       <BrowserRouter>
       <Nav/>
           <Routes>
           <Route path="/" element={<h1>Problems list</h1>}/>
             <Route path="/signup" element={<SignUp/>}/>
+         
+
             
           </Routes>
             </BrowserRouter>
         </div>
+
+
     </>
   )
 }
