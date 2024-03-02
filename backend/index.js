@@ -12,6 +12,8 @@ const cookieParser=require('cookie-parser');
 const{generateFile}=require('./generateFile.js');
 const{executeCpp}=require('./executeCpp.js');
 const{executeJava}=require('./executeJava.js');
+const{generateInputFile}= require('./generateInputFile.js');
+
 
 
 const PORT=process.env.PORT || 8000;
@@ -179,6 +181,7 @@ catch(error){
 app.post("/run",async(req,res)=>{
 const language=req.body.language;
 const code=req.body.code;
+const input=req.body.input;
 
 if(!language){
   return res.status(400).send("Please choose language!");
@@ -189,13 +192,14 @@ if(!code){
 
 try{
 const filepath=await generateFile(language,code);
+const inputpath=await generateInputFile(input);
 var output=""
 if(req.body.language==="cpp"){
- output = await executeCpp(filepath);
+ output = await executeCpp(filepath,inputpath);
 }
 else if(req.body.language==="java"){
 
-   output = await executeJava(filepath);
+   output = await executeJava(filepath,inputpath);
 }
         res.json({ filepath, output });
 
