@@ -46,3 +46,24 @@ body {
   background-size: cover;
   background-position: center;
 }
+
+.product-list{
+  text-align: center;
+  margin-top: 50px ;
+}
+
+.product-list ul li{
+  display: inline-block;
+  border: 1px solid rgb(255, 0, 81);
+  padding: 5px;
+  
+ 
+}
+.Problem-Name{
+  width: 600px;
+ 
+}
+.Nav li{
+display: inline-block;
+padding: 10px;
+}

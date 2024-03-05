@@ -97,7 +97,7 @@ app.post('/login', async (req,res)=>{
     const user=await User.findOne({email});
 
     if(!user){
-        return res.status(200).send("User with this mail not  exists!");
+        return res.status(400).send("User with this mail not  exists!");
     }
 
       //match the password
@@ -211,6 +211,34 @@ catch(error){
 
 
 
+
+
+});
+
+app.get("/getAllProblems",async(req,res)=>{
+
+  try{
+      const problems=await Problem.find({})
+      if((!problems)){
+        return res.status(400).send({
+          success:false,
+          message:'No Problem found',
+        });
+      }
+      return res.status(200).send({
+        success: true,
+        message:'All Problems list',
+        problems,
+      })
+  }
+  catch(error){
+    console.log(error);
+    res.status(500).send({
+      success:false,
+      message:'Error while get Problems',
+      error
+    })
+  }
 
 
 });
