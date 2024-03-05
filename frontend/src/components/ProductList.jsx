@@ -1,62 +1,39 @@
 import React, { useEffect, useState } from 'react';
+import {Link} from 'react-router-dom'
 
 
-const ProductList=()=>{
-    const [products,setProducts]=useState([]);
 
-    useEffect(()=>{
-      getProducts();
-    },[])
+const ProductList = () => {
+  const [products, setProducts] = useState([]);
 
-    const getProducts=async()=>{
-     let result= await fetch('http://localhost:8080/getAllProblems');
-      result=await result.json();
-      setProducts(result);
-    }
+  useEffect(() => {
+    getProducts();
+  }, [])
 
-    console.warn("products",products);
-    return (
-        <div>
-         
-          <div className="relative overflow-x-auto">
-            <table className="mx-auto w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                <th scope="col" className="px-6 py-3">
-                    Sr. No.
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Problem Name
-                  </th>
-                  
-                </tr>
-              </thead>
-              <tbody>
-                {
-                products.map((question, index) => {
-                  return (
-                    <tr
-                      onClick={() => getProblemDescription(question)}
-                      key={index}
-                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                    >
-                      <th
-                        scope="row"
-                        className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                      >
-                        {question.title}
-                      </th>
-                      <td className="px-6 py-4">{question.type}</td>
-                      <td className="px-6 py-4">{question.difficulty}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-           
-          </div>
-        </div>
-      );
-    }
+  const getProducts = async () => {
+    let result = await fetch('http://localhost:8080/getAllProblems');
+    result = await result.json();
+    setProducts(result.problems);
+  }
+
+  console.warn("products", products);
+  return (
+    <div className='product-list'>
+      <h3 class="font-black" >Problems</h3>
+      <ul>
+        <li class='w-20 font-semibold'>S. No.</li>
+        <li class="Problem-Name font-semibold" >Problem Title</li>
+      </ul>
+      {
+        products.map((item, index) =>
+          <ul>
+            <li class='w-20'>{index + 1}</li>
+            <li class="Problem-Name"><Link to="/solveProblem">{item.problem_name}</Link></li>
+          </ul>
+        )
+}
+    </div>
+  );
+}
 
 export default ProductList;

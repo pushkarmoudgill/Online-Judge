@@ -59,10 +59,15 @@ body {
   
  
 }
+/* .product-list ul{
+  margin: 0px;
+} */
 .Problem-Name{
+
   width: 600px;
  
 }
+
 .Nav li{
 display: inline-block;
 padding: 10px;
