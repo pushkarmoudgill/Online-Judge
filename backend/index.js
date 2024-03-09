@@ -244,6 +244,18 @@ app.get("/getAllProblems",async(req,res)=>{
 });
 
 
+//get problem by id
+
+app.get("/getProblem/:id",async(req,res)=>{
+  let result=await Problem.findOne({_id:req.params.id});
+  if(result){
+    res.send(result)
+  }else{
+      res.send({result:"Problem not available"})
+  }
+})
+
+
 app.listen(PORT,()=>{
     console.log("Server listening on port 8080");
 });

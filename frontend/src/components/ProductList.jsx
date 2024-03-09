@@ -28,7 +28,7 @@ const ProductList = () => {
         products.map((item, index) =>
           <ul>
             <li class='w-20'>{index + 1}</li>
-            <li class="Problem-Name"><Link to="/solveProblem">{item.problem_name}</Link></li>
+            <li class="Problem-Name"><Link to={"/solveProblem/"+ item._id}>{item.problem_name}</Link></li>
           </ul>
         )
 }

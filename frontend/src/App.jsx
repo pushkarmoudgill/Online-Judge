@@ -10,7 +10,8 @@ import PrivateComponent from './components/PrivateCompmponent';
 import Login from './components/Login';
 import AddProblem from './components/AddProblem';
 import ProductList from './components/ProductList';
-import SolveProblem from './components/SolveProblem'
+import SolveProblem from './components/SolveProblem';
+import Home from './components/Home'
 function App() {
   const [count, setCount] = useState(0)
   
@@ -21,11 +22,12 @@ function App() {
       <BrowserRouter>
       <Nav/>
           <Routes>
-          <Route path="/" element={<ProductList/>}/>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/problems" element={<ProductList/>}/>
             <Route path="/signup" element={<SignUp/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/addProblem" element={<AddProblem/>}/>
-            <Route path="/solveProblem" element={<SolveProblem/>}/>
+            <Route path="/solveProblem/:id" element={<SolveProblem/>}/>
          
             
           </Routes>
