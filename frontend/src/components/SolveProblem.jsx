@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
+
 
 
 
@@ -30,6 +33,21 @@ const SolveProblem=()=>{
    const [language, setLanguage] = useState("cpp");
    const [input, setInput] = useState('');
     const [output, setOutput] = useState('');
+    const params=useParams();
+    const [problem, setProblem] = useState('');
+
+    useEffect(()=>{
+      console.warn(params)
+      getProblemDetails();
+    },[])
+
+    const getProblemDetails=async()=>{
+      console.warn(params)
+      let result=await fetch(`http://localhost:8080/getProblem/${params.id}`);
+      result= await result.json();
+      console.warn(result)
+      setProblem(result);
+    }
 
     const handleSubmit = async () => {
         const payload = {
@@ -49,8 +67,32 @@ const SolveProblem=()=>{
     
 
       return (
-        <div className="container mx-auto py-8 flex flex-col items-center">
-          <h1 className="text-3xl font-bold mb-4">AlgoU Online Code Compiler</h1>
+
+       
+
+
+        <div class="width: 100%;">
+
+
+      <div class="leftbox">
+        
+         
+      <p className='Description'><h1 class="font-bold">Problem Description:</h1>{problem.description}</p>
+      <p className='Description'><h1 class="font-bold">Constraints:</h1>{problem.constraint}</p>
+      <p className='Description'><h1 class="font-bold">Input:</h1>{problem.input}</p>
+      <p className='Description'><h1 class="font-bold">Output:</h1>{problem.output}</p>
+
+
+      
+      </div>
+  
+       
+        <div className="middlebox">
+        
+          <h1 className="text-2xl font-bold ml-10 mt-10 mr-80"><h class="font-bold">Title:</h>{problem.problem_name}</h1>
+  
+ 
+       
           <select onChange={e => {
               setLanguage(e.target.value);
             }}
@@ -60,6 +102,7 @@ const SolveProblem=()=>{
             <option value='java'>Java</option>
           </select>
           <br />
+          
           <div className="bg-gray-100 shadow-md w-full max-w-lg mb-4" style={{ height: '300px', overflowY: 'auto' }}>
             <Editor
               value={code}
@@ -86,6 +129,7 @@ const SolveProblem=()=>{
             Run
           </button>
 
+          <div className="lg:w-1/2 lg:pl-8 pt-10">
           <div className="mb-4">
           <h2 className="text-lg font-semibold mb-2">Input</h2>
           <textarea
@@ -98,7 +142,11 @@ const SolveProblem=()=>{
             style={{ minHeight: '100px' }}
           ></textarea>
         </div>
-    
+        {/* <label >
+      Write your post:
+      <textarea class="left-0 top-0"name="postContent" rows={4} cols={40} />
+    </label> */}
+        
           {output &&
             <div className="outputbox mt-4 bg-gray-100 rounded-md shadow-md p-4">
               <p style={{
@@ -107,6 +155,8 @@ const SolveProblem=()=>{
               }}>{output}</p>
             </div>
           }
+        </div>
+        </div>
         </div>
       );
     }
