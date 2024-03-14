@@ -1,20 +1,43 @@
-import React ,{useState}from "react";
+import React ,{useEffect,useState}from "react";
 
+import { useNavigate } from "react-router-dom";
 
 const SignUp=()=>{
     const[name,setName]=useState("");
     const[password,setPassword]=useState("");
+    
     const[email,setEmail]=useState("");
+    const navigate =useNavigate();
+
+    // useEffect(()=>{
+    //     const auth =localStorage.getItem('user');
+    //       if(auth){
+    //         navigate("/")
+    //       }
+    //         },[])
     const collectData=async()=>{
         console.warn(name,email,password);
-        const result =await fetch('http://localhost:8080/register',{
+        let result =await fetch('http://localhost:8080/register',{
             method:'post',
             body:JSON.stringify({name,email,password}),
             headers:{
                 'Content-Type':'application/json'
             },
         });
-        console.warn(await result.json());
+        if(result.status===400){
+            alert("This Email already Exist!")
+        }
+
+        result=await result.json();
+
+       
+      
+       alert("User Registered Successfully")
+        localStorage.setItem("user",JSON.stringify(result));
+
+       
+        //localStorage.removeItem('user.password');
+       // navigate('/');
     }
     return(
         <div className="flex justify-center items-center h-screen">

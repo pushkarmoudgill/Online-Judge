@@ -22,13 +22,19 @@ function App() {
       <BrowserRouter>
       <Nav/>
           <Routes>
+
+          <Route element={<PrivateComponent/>}>
+
           <Route path="/" element={<Home/>}/>
           <Route path="/problems" element={<ProductList/>}/>
-            <Route path="/signup" element={<SignUp/>}/>
+           
             <Route path="/login" element={<Login/>}/>
             <Route path="/addProblem" element={<AddProblem/>}/>
             <Route path="/solveProblem/:id" element={<SolveProblem/>}/>
-         
+            <Route path="/logout" element={<h1>Logout</h1>}/>
+          </Route>
+
+            <Route path="/signup" element={<SignUp/>}/>
             
           </Routes>
             </BrowserRouter>

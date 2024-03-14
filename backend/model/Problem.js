@@ -27,14 +27,23 @@ const problemSchema = new mongoose.Schema({
         type: String,
         required:true,
     },
-    testcase: [
-        {
-          input: { type: String },
-          output: { type: String },
+    // testcase: [
+    //     {
+    //       input: { type: String },
+    //       output: { type: String },
           
-        },
+    //     },
      
-      ],
+    //   ],
+    testcaseInput:{
+        type: String,
+        required:true,
+    },
+    testcaseOutput:{
+        type: String,
+        required:true,
+    }
+
 });
 
 module.exports = mongoose.model("Problem", problemSchema);

@@ -1,58 +1,60 @@
-import React from "react";
+import React, {useState} from "react";
 
+//import axios from "axios";
 
 const AddProblem=()=>{
-    const [inputValues, setInputValues] = useState([]);
+  const[name,setName]=useState("");
+    const[description,setDescription]=useState("");
+    const[constraint,setConstraint]=useState("");
+    const[input,setInput]=useState("");
+    const[output,setOutput]=useState("");
+    const [inputfile, setInputFile] = useState('')
+    console.log(inputfile);
+    const [outputfile, setOutputFile] = useState('')
+    console.log(outputfile);
 
-    const handleInputChange = (event) => {
-        const newInputValues = [...inputValues];
-        newInputValues[event.target.id] = event.target.value;
-        setInputValues(newInputValues);
-      };
+    const addProduct=()=>{
 
+     console.warn(name)
+      const userId=JSON.parse(localStorage.getItem('user'));
+      //const luser=JSON.parse(userId.user)
+      console.warn(userId.user._id);
+    }
+
+
+    //file upload
+    // let fData=new FormData();
+    // fData.append("name",name);
+    // fData.append("description",description);
+    // fData.append("constraint",constraint);
+    // fData.append("input",input);
+    // fData.append("output",output);
+    // fData.append("inputfile",inputfile);
+    // fData.append("outputfile",outputfile);
+
+    //let res=await axios.post("http://localhost:8080/addProblem")
+     
+    //console.log(res)
     return (
-        <div className="flex justify-center items-center h-screen">
+        <div className="problem ">
                
-             <div className="w-96 p-6 shadow-lg bg-slate-400 rounded-md">
-                <h1 className="text-2xl text-center font-extrabold">Add  </h1>
-                 {/* <div class="mr-3 mt-2">
-                <input  className="inputBox w-80 " type="text" 
-                value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter Problem Name"/>
-                </div>
-                 <div class="mr-3 mt-2">
-                <input  className="inputBox w-80" type="text"
-                 value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter Description of Problem"/>
-                  </div>
+            <h1 class="font-semibold text-2xl text-pink-600 mr-80 ">Share You had facing DSA Problem in Interviews</h1>
+            <input type="text" placeholder="Enter Problem Name" className="inputBox"
+             value={name} onChange={(e)=>setName(e.target.value)}/>
+            <input type="text" placeholder="Enter Problem Description"  className="inputBox"
+            value={description} onChange={(e)=>setDescription(e.target.value)} />
+            <input type="text" placeholder="Give Constraints"  className="inputBox"
+             value={constraint} onChange={(e)=>setConstraint(e.target.value)}/>
+            <input type="text" placeholder="Enter Input"  className="inputBox"
+             value={input} onChange={(e)=>setInput(e.target.value)}/>
+            <input type="text" placeholder="Enter Output"  className="inputBox"
+             value={output} onChange={(e)=>setOutput(e.target.value)}/>
+            <h1 className="inputBox">Input Testcases File upload</h1>
+          <input type="file" onChange={(e)=> setInputFile(e.target.files[0])} />
+          <h1 className="inputBox">Output Testcases File Upload</h1>
+          <input type="file" onChange={(e)=> setOutputFile(e.target.files[0])} />
 
-                  <div class="mr-3 mt-2">
-                <input  className="inputBox w-80" type="text"
-                 value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter Constraints of Problem"/>
-                  </div>
-
-                  <div class="mr-3 mt-2">
-                <input  className="inputBox w-80" type="text"
-                 value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter Input of Problem"/>
-                  </div>
-
-                  <div class="mr-3 mt-2">
-                <input  className="inputBox w-80" type="text"
-                 value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter OutPut of Problem"/>
-                  </div> */}
-
-
-<input type="text" value={inputValues[0]} onChange={handleInputChange} id="0" />
-<input type="text" value={inputValues[1]} onChange={handleInputChange} id="1" />
-
-
-                 
-
-                  {/* <div class="mr-3 mt-2">
-                <button onClick={handleLogin} className="appButton font-bold outline-double
-                "type="button">Sign In</button>
-                </div> */}
-
-
-            </div>
+          <button onClick={addProduct} className="appButton font-bold outline-double text-pink-600 bg-pink-200">ADD DSA PROBLEM</button>
             </div>
         )
     

@@ -13,6 +13,7 @@ const{generateFile}=require('./generateFile.js');
 const{executeCpp}=require('./executeCpp.js');
 const{executeJava}=require('./executeJava.js');
 const{generateInputFile}= require('./generateInputFile.js');
+const multer =require('multer')
 
 
 
@@ -49,7 +50,7 @@ if(!(name && email && password)){
 const isUserExists=await User.findOne({email});
 
 if(isUserExists){
-    return res.status(200).send("User with this mail is already exists!");
+    return res.status(400).send("User with this mail is already exists!");
 }
 
 //encrypt the user password
@@ -70,6 +71,7 @@ const hashedPassword=await  bcrypt.hash(password,10);
 
   res.status(200).json({
     message:"You have Successfully registered!",
+    success:true, 
     userData
   });
 
@@ -128,6 +130,7 @@ app.post('/login', async (req,res)=>{
     message:"You have Successfully Logged in!",
     success:true,
     token,
+    user
   });
 
 
@@ -254,6 +257,11 @@ app.get("/getProblem/:id",async(req,res)=>{
       res.send({result:"Problem not available"})
   }
 })
+
+
+
+
+
 
 
 app.listen(PORT,()=>{

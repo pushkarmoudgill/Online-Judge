@@ -89,3 +89,13 @@ padding: 10px;
   width: 75%;
   height: 280px;
 }
+.problem{
+  margin-left: 30%;
+}
+.inputBox{
+  padding: 7px;
+  display: block;
+  border: 1px solid palevioletred;
+  width: 500px;
+  margin: 20px;
+}

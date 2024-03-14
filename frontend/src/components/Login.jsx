@@ -1,9 +1,18 @@
-import React ,{useState}from "react";
+import React ,{useEffect, useState}from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const Login=()=>{
     const [email,setEmail]=React.useState('');
     const [password,setPassword]=React.useState('');
+    const navigate =useNavigate();
+    useEffect(()=>{
+const auth =localStorage.getItem('user');
+
+  if(auth){
+    navigate("/problems")
+  }
+    },[])
     const handleLogin= async()=>{
         console.warn(email,password)
         let result =await fetch('http://localhost:8080/login',{
@@ -15,14 +24,18 @@ const Login=()=>{
     
     
         });
+       if(result.status===400){
+        alert("Please enter correct Details");
+       }
+        
         result=await result.json();
         console.warn(result)
 
-        if(result.name){
-            localStorage.setItem("user",JSON.stringify(result))
-        }else{
-            alert("Please enter correct Details")
-        }
+       if(result.user){
+            localStorage.setItem("user", JSON.stringify(result));
+           // localStorage.removeItem('user.password');
+            navigate("/problems");
+       }
 
         }
     return (
