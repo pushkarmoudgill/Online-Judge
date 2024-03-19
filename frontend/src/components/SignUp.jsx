@@ -33,11 +33,11 @@ const SignUp=()=>{
        
       
        alert("User Registered Successfully")
-        localStorage.setItem("user",JSON.stringify(result));
+       // localStorage.setItem("user",JSON.stringify(result));
 
        
         //localStorage.removeItem('user.password');
-       // navigate('/');
+       navigate('/login');
     }
     return(
         <div className="flex justify-center items-center h-screen">

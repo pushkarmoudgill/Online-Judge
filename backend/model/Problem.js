@@ -9,11 +9,11 @@ const problemSchema = new mongoose.Schema({
     description: {
         type: String,
         //unique: true,
-        required:true,
+       required:true,
     },
     constraint: {
         type: String,
-        required:true,
+      required:true,
     },
     input: {
         type: String,
@@ -41,7 +41,7 @@ const problemSchema = new mongoose.Schema({
     },
     testcaseOutput:{
         type: String,
-        required:true,
+     required:true,
     }
 
 });

@@ -19,6 +19,11 @@ const multer =require('multer')
 
 const PORT=process.env.PORT || 8000;
 
+const upload=multer({dest:'inputTestcaseFiles'})
+
+const uploadOp=multer({dest:'outputTestcaseFiles'})
+
+
 //middlewares
 app.use(express.json());
 app.use(cors());
@@ -150,7 +155,7 @@ app.post('/addProblem', async (req,res)=>{
   
 
 //get all the data from frontend
-const {problem_name,description,constraint,input,output,userId,testcase}=req.body;
+const {problem_name,description,constraint,input,output,userId,testcaseInput,testcaseOutput}=req.body;
 
 //check all data should exist or not
 if(!(problem_name && description && constraint&&input&&output)){
@@ -162,7 +167,7 @@ if(!(problem_name && description && constraint&&input&&output)){
 
 //save the user data in db
 const problemData=await Problem.create({
-  problem_name,description,constraint,input,output,userId,testcase
+  problem_name,description,constraint,input,output,userId,testcaseInput,testcaseOutput
 });
 
 
@@ -258,8 +263,86 @@ app.get("/getProblem/:id",async(req,res)=>{
   }
 })
 
+///tc
+// app.post("/upload",upload.single('file') , async(req,res)=>{
+
+ 
+
+//   const fileobj={
+//     testcaseInput: req.file.path,
+//   }
+//   console.log("ipPath",fileobj);
+
+//   try{
+//    //const file =await Problem.create(fileobj);
+//     // res.status(200).json({path:`http://localhost:8080/file/${file._id}`})
+//     const path=fileobj['testcaseInput'];
+//     console.log("PPP",path);
+//     res.status(200).json({path});
+
+//   }
+//   catch(error){
+//     console.log(error.message);
+//   }
 
 
+// });
+
+
+// app.post("/uploadOp",uploadOp.single('file') , async(req,res)=>{
+
+ 
+
+//   const fileobj={
+//     testcaseOutput: req.file.path,
+//   }
+//   console.log("OpPath",fileobj);
+
+//   try{
+//     //const file =await Problem.create(fileobj);
+//     const path=fileobj['testcaseOutput'];
+//     res.status(200).json({path});
+//   }
+//   catch(error){
+//     console.log(error.message);
+//   }
+
+
+// });
+
+
+//////////////////////bha
+app.post("/upload", upload.single('file'), async (req, res) => {
+  //console.log(req);
+  const fileobj = {
+    testcaseInput: req.file.path,
+  };
+  //console.log("ipPath", fileobj);
+
+  try {
+    let Inputpath = fileobj['testcaseInput'];
+    //console.log("PPP", Inputpath);
+    res.status(200).json({ Inputpath });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/uploadOp", uploadOp.single('file'), async (req, res) => {
+  const fileobj = {
+    testcaseOutput: req.file.path,
+  };
+//console.log("OpPath", fileobj);
+
+  try {
+    let outputpath = fileobj['testcaseOutput'];
+    res.status(200).json({ outputpath });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
 
 
 
