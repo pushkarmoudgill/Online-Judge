@@ -15,7 +15,8 @@ const{executeJava}=require('./executeJava.js');
 const{generateInputFile}= require('./generateInputFile.js');
 const multer =require('multer')
 
-
+const fs=require('fs');
+const path=require('path');
 
 const PORT=process.env.PORT || 8000;
 
@@ -201,6 +202,8 @@ if(!code){
 try{
 const filepath=await generateFile(language,code);
 const inputpath=await generateInputFile(input);
+
+console.log("RunINN+",inputpath);
 var output=""
 if(req.body.language==="cpp"){
  output = await executeCpp(filepath,inputpath);
@@ -209,6 +212,7 @@ else if(req.body.language==="java"){
 
    output = await executeJava(filepath,inputpath);
 }
+console.log('outtputRunn',output);
         res.json({ filepath, output });
 
 }
@@ -222,6 +226,121 @@ catch(error){
 
 
 });
+
+
+
+//code submit button
+app.post("/submit/:id",async(req,res)=>{
+  const language=req.body.language;
+  const code=req.body.code;
+  //const input=req.body.input;
+  let result=await Problem.findOne({_id:req.params.id});
+  console.log("SubRES",result.testcaseInput);
+
+  //const dirCode=path.join(__dirname,`${result.testcaseInput}.txt`);
+
+  const dirCode=path.join(__dirname,result.testcaseInput);
+
+  const dirCode1=path.join(__dirname,result.testcaseOutput);
+
+  console.log("SubIN",dirCode);
+
+  console.log("SubOut",dirCode1);
+
+  // Use fs.readFile() method to read the file
+  var testCasesInputfile = await fs.readFileSync(dirCode, {
+    encoding: "utf8",
+    flag: "r"
+  });
+
+  
+  console.log("dirrrr",testCasesInputfile);
+
+  testCasesInputfile = testCasesInputfile.split(/[\r\n]+/).filter(n => n);
+  console.log("splitting", testCasesInputfile);
+
+
+  var testCasesOutputfile = await fs.readFileSync(dirCode1, {
+    encoding: "utf8",
+    flag: "r"
+  });
+
+  const filepath=await generateFile(language,code);
+  
+  console.log("dirrrr",testCasesOutputfile);
+
+  testCasesOutputfile = testCasesOutputfile.split(/[\r\n]+/).filter(n => n);
+  console.log("splittingOO", testCasesOutputfile);
+
+  console.log("0",testCasesInputfile.length);
+
+  //const inputFilePath=
+
+
+  
+  if(!language){
+    return res.status(400).send("Please choose language!");
+  }
+  if(!code){
+    return res.status(400).send("Empty code body");
+
+  }
+  for (var i = 0; i < testCasesInputfile.length; i++) {
+  try{
+  
+  const inputpath=await generateInputFile(testCasesInputfile[i]);
+   var output=""
+  if(req.body.language==="cpp"){
+   output = await executeCpp(filepath,inputpath);
+  }
+   else if(req.body.language==="java"){
+  
+      output = await executeJava(filepath,inputpath);
+   }
+
+      console.log("outt",output)
+
+
+      output = output.trim();
+
+
+
+
+      if(output!=testCasesOutputfile[i]){
+       
+
+        res.json({   message:`Test Case Failed ${i + 1}`,
+         
+
+      });
+      return;
+      }
+  // }
+        
+         
+ 
+      
+  }
+  catch(error){
+    res.status(500).json({error: error});
+  }
+}
+
+res.json({   message:"Code sucessfully submitted",
+});
+  
+  
+  
+  
+  
+  });
+
+
+
+
+
+
+
 
 app.get("/getAllProblems",async(req,res)=>{
 

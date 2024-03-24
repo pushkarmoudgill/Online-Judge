@@ -11,7 +11,7 @@ const executeJava=async(filePath,inputPath)=>{
 
     const jobID=path.basename(filePath).split('.')[0];
     const outPath = path.join(outputPath, `${jobID}.class`);
-    //console.log(outPath);
+    console.log(outPath);
     const main="Main";
 
     return new Promise((resolve, reject) => {

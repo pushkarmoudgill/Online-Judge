@@ -64,6 +64,23 @@ const SolveProblem=()=>{
           console.log(error.response);
         }
       }
+
+
+      const handleSubmitTestCase = async () => {
+        const payload = {
+          language,
+          code,
+          input
+        };
+    
+        try {
+          const { data } = await axios.post(`http://localhost:8080/submit/${params.id}`, payload);
+          console.log(data);
+          setOutput(data.message);
+        } catch (error) {
+          console.log(error.response);
+        }
+      }
     
 
       return (
@@ -129,8 +146,17 @@ const SolveProblem=()=>{
             Run
           </button>
 
-          <div className="lg:w-1/2 lg:pl-8 pt-10">
-          <div className="mb-4">
+          <button onClick={handleSubmitTestCase} type="button" className="text-center inline-flex items-center text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 me-2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z" />
+            </svg>
+            Submit
+          </button>
+          </div>
+
+          <div className="rightbox mb-7">
+          <div className="mb-1">
           <h2 className="text-lg font-semibold mb-2">Input</h2>
           <textarea
             rows='5'
@@ -148,15 +174,17 @@ const SolveProblem=()=>{
     </label> */}
         
           {output &&
-            <div className="outputbox mt-4 bg-gray-100 rounded-md shadow-md p-4">
+            <div className="outputbox mt-3 bg-gray-100 rounded-md shadow-md p-4">
               <p style={{
                 fontFamily: '"Fira code", "Fira Mono", monospace',
-                fontSize: 12,
+                fontSize: 16,
               }}>{output}</p>
             </div>
           }
-        </div>
-        </div>
+
+          
+</div>
+        
         </div>
       );
     }
