@@ -112,6 +112,8 @@
 ////////////////bha
 import React, { useState, useEffect } from "react";
 import { uploadFile, uploadFileop } from "../service/api";
+import { useNavigate } from "react-router-dom";
+
 
 const AddProblem = () => {
   const [problem_name, setName] = useState("");
@@ -122,6 +124,7 @@ const AddProblem = () => {
   const [testcaseInput, setInputFile] = useState(null);
   //console.log(inputFile);
   const [testcaseOutput, setOutputFile] = useState(null);
+  const navigate =useNavigate();
 
  // useEffect(() => {
     const getInput = async () => {
@@ -179,6 +182,8 @@ const AddProblem = () => {
 
     const data = await result.json();
     console.log(data);
+
+    navigate('/problems');
   };
 
   return (
@@ -227,7 +232,7 @@ const AddProblem = () => {
 
       <button
         onClick={getInput}
-        className="appButton font-bold outline-double text-pink-600 bg-pink-200"
+        className="mr-80 appButton font-bold outline-double text-pink-600 bg-pink-200"
       >add Input</button>
 
       <h1 className="inputBox">Output Testcases File Upload</h1>
@@ -237,12 +242,12 @@ const AddProblem = () => {
       />
        <button
         onClick={getOutput}
-        className="appButton font-bold outline-double text-pink-600 bg-pink-200"
+        className="mr-80 appButton font-bold outline-double text-pink-600 bg-pink-200"
       >add Output</button>
 
       <button
         onClick={addProblem}
-        className="appButton font-bold outline-double text-pink-600 bg-pink-200"
+        className=" ml-0 mt-4 mr-80 appButton font-bold outline-double text-pink-600 bg-pink-200"
       >
         ADD DSA PROBLEM
       </button>

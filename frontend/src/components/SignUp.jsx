@@ -40,9 +40,13 @@ const SignUp=()=>{
        navigate('/login');
     }
     return(
+        
         <div className="flex justify-center items-center h-screen">
            
             <div className="w-96 p-6 shadow-lg bg-slate-400 rounded-md">
+            <h1 class='mt-2 font-bold text-pink-900 text-[48px] '>Give And Learn</h1>
+
+                
             <h1 className="text-2xl text-center font-extrabold">Register  </h1>
             
             <div class="mr-3 mt-3">
