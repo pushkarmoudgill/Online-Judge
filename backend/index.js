@@ -382,6 +382,26 @@ app.get("/getProblem/:id",async(req,res)=>{
   }
 })
 
+
+app.delete("/problem/:probId/:id", async (req,res)=>{
+  let result=await Problem.findOne({_id:req.params.probId});
+  let user_id=req.params.id;
+console.warn("useridd",user_id);
+var flag=""
+ if(result.userId===user_id){
+  const problemDelete=await Problem.deleteOne({_id:req.params.probId});
+  res.json({problemDelete,message:"Problem deleted SuccessFully",flag:'true'});
+ }
+ else{
+  res.json({
+    message:"You can't delete other user's Problem",
+    flag:"false",
+  })
+ }
+  console.warn("PRES",result.userId);
+
+});
+
 ///tc
 // app.post("/upload",upload.single('file') , async(req,res)=>{
 
