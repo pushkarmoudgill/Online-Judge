@@ -59,7 +59,7 @@ const SolveProblem=()=>{
         try {
           const { data } = await axios.post('http://localhost:8080/run', payload);
           console.log(data);
-          setOutput(data.output);
+          setOutput("Output: "+data.output);
         } catch (error) {
           console.log(error.response);
         }
@@ -76,7 +76,7 @@ const SolveProblem=()=>{
         try {
           const { data } = await axios.post(`http://localhost:8080/submit/${params.id}`, payload);
           console.log(data);
-          setOutput(data.message);
+          setOutput("Status: "+data.message);
         } catch (error) {
           console.log(error.response);
         }

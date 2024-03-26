@@ -136,13 +136,14 @@ const AddProblem = () => {
         const response = await uploadFile(data);
         console.log("IPPP",response);
         setInputFile(response['Inputpath']);
-       // console.log("PayIP",inputFile);
+
+
+       if(response.message==="success"){
+        alert("Input TestCase file Uploaded")
+       }
       }
     };
-  //   getInput();
-  // }, [inputFile]);
-
- // useEffect(() => {
+  
     const getOutput = async () => {
       if (testcaseOutput) {
         const data = new FormData();
@@ -151,6 +152,9 @@ const AddProblem = () => {
 
         const response = await uploadFileop(data);
         setOutputFile(response['outputpath']);
+        if(response.message==="success"){
+          alert("Output TestCase file Uploaded")
+         }
       }
     };
   //   getOutput();

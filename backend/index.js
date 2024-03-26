@@ -402,6 +402,35 @@ var flag=""
 
 });
 
+
+app.put("/update/:probId/:id",async(req,res)=>{
+  let result=await Problem.findOne({_id:req.params.probId});
+  let user_id=req.params.id;
+  var flag=""
+  if(result.userId===user_id){
+const update_result=await Problem.updateOne(
+  {_id:req.params.probId },
+  {
+       $set:req.body
+  }
+);
+// res.json({
+//   update_result,
+//   flag:"true"
+// })
+res.send(update_result);
+
+  }
+  else{
+    res.json({
+      message:"You can't update other user's Problem",
+      flag:"false",
+    })
+   }
+
+
+});
+
 ///tc
 // app.post("/upload",upload.single('file') , async(req,res)=>{
 
@@ -461,7 +490,7 @@ app.post("/upload", upload.single('file'), async (req, res) => {
   try {
     let Inputpath = fileobj['testcaseInput'];
     //console.log("PPP", Inputpath);
-    res.status(200).json({ Inputpath });
+    res.status(200).json({ Inputpath,message:"success" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: error.message });
@@ -476,7 +505,7 @@ app.post("/uploadOp", uploadOp.single('file'), async (req, res) => {
 
   try {
     let outputpath = fileobj['testcaseOutput'];
-    res.status(200).json({ outputpath });
+    res.status(200).json({ outputpath,message:"success" });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: error.message });

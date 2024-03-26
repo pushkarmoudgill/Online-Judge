@@ -12,6 +12,7 @@ import AddProblem from './components/AddProblem';
 import ProductList from './components/ProductList';
 import SolveProblem from './components/SolveProblem';
 import Home from './components/Home'
+import UpdateProblem from './components/UpdateProblem'
 function App() {
   const [count, setCount] = useState(0)
   
@@ -32,6 +33,8 @@ function App() {
             <Route path="/addProblem" element={<AddProblem/>}/>
             <Route path="/solveProblem/:id" element={<SolveProblem/>}/>
             <Route path="/logout" element={<h1>Logout</h1>}/>
+            <Route path="/update/:id/:userid" element={<UpdateProblem/>}/>
+
           </Route>
 
             <Route path="/signup" element={<SignUp/>}/>

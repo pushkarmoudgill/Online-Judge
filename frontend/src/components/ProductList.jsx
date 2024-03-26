@@ -44,7 +44,7 @@ const ProductList = () => {
       <ul>
         <li class='w-20 font-semibold'>S. No.</li>
         <li class="Problem-Name font-semibold" >Problem Title</li>
-        <li class='w-20 font-semibold'>Operation</li>
+        <li class='w-40 font-semibold'>Operation</li>
       </ul>
       {
         products.map((item, index) =>
@@ -52,10 +52,18 @@ const ProductList = () => {
             <li class='w-20'>{index + 1}</li>
             <li class="Problem-Name"><Link to={"/solveProblem/"+ item._id}>{item.problem_name}</Link></li>
            
-              <li  > <button class="bg-red-700 hover:bg-red-700-700 text-white 
+              <li class='w-40' > {item.userId===userId ?(<button class="bg-red-700 hover:bg-red-700-700 text-white 
               font-semibold py-0 px-1 border border-red-100-300 rounded" onClick={()=>deleteProblem(item._id)}>
   DELETE
-</button></li>
+</button>):(<button class="bg-red-400 hover:bg-red-700-700 text-white 
+              font-semibold py-0 px-1 border border-red-100-300 rounded" onClick={()=>deleteProblem(item._id)}>
+  DELETE
+</button>)}
+{ item.userId===userId ?(
+<Link class="bg-blue-500 bg-blue-500  text-white font-semibold py-0 px-1 rounded" to={"/update/"+item._id+"/"+userId}>Update</Link>
+):(<Link class="bg-blue-500 bg-blue-500  text-white font-semibold py-0 px-1 rounded pointer-events-none opacity-50 cursor-not-allowed" to="/problems">Update</Link>)}
+
+</li>
           
            
             
