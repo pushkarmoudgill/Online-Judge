@@ -17,7 +17,7 @@ const SignUp=()=>{
     //         },[])
     const collectData=async()=>{
         console.warn(name,email,password);
-        let result =await fetch('http://localhost:8080/register',{
+        let result =await fetch('http://35.154.216.31:8080/register',{
             method:'post',
             body:JSON.stringify({name,email,password}),
             headers:{

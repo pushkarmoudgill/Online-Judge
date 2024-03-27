@@ -59,7 +59,7 @@
 //       //const luser=JSON.parse(userId.user)
 //       const id=userId.user._id;
 
-//       let result =await fetch('http://localhost:8080/addProblem',{
+//       let result =await fetch('http://35.154.216.31:8080/addProblem',{
 //         method:'post',
 //         body:JSON.stringify({name,description,constraint,input,output,id,inputfile,outputfile}),
 //         headers:{
@@ -167,7 +167,7 @@ const AddProblem = () => {
     console.log("II",testcaseInput);
     console.log("OO",testcaseOutput);
 
-    const result = await fetch("http://localhost:8080/addProblem", {
+    const result = await fetch("http://35.154.216.31:8080/addProblem", {
       method: "post",
       body: JSON.stringify({
         problem_name,

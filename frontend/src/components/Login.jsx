@@ -15,7 +15,7 @@ const auth =localStorage.getItem('user');
     },[])
     const handleLogin= async()=>{
         console.warn(email,password)
-        let result =await fetch('http://localhost:8080/login',{
+        let result =await fetch('http://35.154.216.31:8080/login',{
            method:'post',
            body:JSON.stringify({email,password}),
            headers:{

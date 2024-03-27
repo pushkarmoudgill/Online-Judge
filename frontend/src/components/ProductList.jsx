@@ -13,14 +13,14 @@ const ProductList = () => {
   }, [])
 
   const getProducts = async () => {
-    let result = await fetch('http://localhost:8080/getAllProblems');
+    let result = await fetch('http://35.154.216.31:8080/getAllProblems');
     result = await result.json();
     setProducts(result.problems);
   }
 
   const deleteProblem=async(id)=>{
     console.warn("uu",userId);
-    let result = await fetch(`http://localhost:8080/problem/${id}/${userId}`,{
+    let result = await fetch(`http://35.154.216.31:8080/problem/${id}/${userId}`,{
      method:"Delete"
     });
     result=await result.json();

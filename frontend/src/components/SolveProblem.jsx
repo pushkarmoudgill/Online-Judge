@@ -43,7 +43,7 @@ const SolveProblem=()=>{
 
     const getProblemDetails=async()=>{
       console.warn(params)
-      let result=await fetch(`http://localhost:8080/getProblem/${params.id}`);
+      let result=await fetch(`http://35.154.216.31:8080/getProblem/${params.id}`);
       result= await result.json();
       console.warn(result)
       setProblem(result);
@@ -57,7 +57,7 @@ const SolveProblem=()=>{
         };
     
         try {
-          const { data } = await axios.post('http://localhost:8080/run', payload);
+          const { data } = await axios.post('http://35.154.216.31:8080/run', payload);
           console.log(data);
           setOutput("Output: "+data.output);
         } catch (error) {
@@ -74,7 +74,7 @@ const SolveProblem=()=>{
         };
     
         try {
-          const { data } = await axios.post(`http://localhost:8080/submit/${params.id}`, payload);
+          const { data } = await axios.post(`http://35.154.216.31:8080/submit/${params.id}`, payload);
           console.log(data);
           setOutput("Status: "+data.message);
         } catch (error) {
