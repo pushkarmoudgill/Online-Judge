@@ -2,7 +2,7 @@
 
 // export const uploadFile=async(data)=>{
 // try{
-// const response=await axios.post('http://35.154.216.31:8080/upload',data);
+// const response=await axios.post('http://localhost:8080/upload',data);
 // console.log("api ress",response.data);
 // return response.data;
 // }
@@ -13,7 +13,7 @@
 
 // export const uploadFileop=async(data)=>{
 //     try{
-//     const response=await axios.post('http://35.154.216.31:8080/uploadOp',data);
+//     const response=await axios.post('http://localhost:8080/uploadOp',data);
 //     return response.data;
 //     }
 //     catch(error){
@@ -24,10 +24,12 @@
 
 /////////bha
 import axios from 'axios';
-
+const api_url=import.meta.env.VITE_BACKEND_URL;
 export const uploadFile = async (data) => {
+ 
+
   try {
-    const response = await axios.post('http://35.154.216.31:8080/upload', data);
+    const response = await axios.post(`${api_url}/upload`, data);
     console.log("api ress", response.data);
     return response.data;
   } catch (error) {
@@ -37,8 +39,10 @@ export const uploadFile = async (data) => {
 }
 
 export const uploadFileop = async (data) => {
+  
+
   try {
-    const response = await axios.post('http://35.154.216.31:8080/uploadOp', data);
+    const response = await axios.post(`${api_url}/uploadOp`, data);
     return response.data;
   } catch (error) {
     console.log("Error while calling the API", error.message);

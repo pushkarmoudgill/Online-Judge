@@ -15,6 +15,8 @@ import { useParams } from 'react-router-dom';
 
 
 const SolveProblem=()=>{
+  const api_url=import.meta.env.VITE_BACKEND_URL;
+
     const [code, setCode] = useState(`
     // Include the input/output stream library
   #include <iostream> 
@@ -43,7 +45,7 @@ const SolveProblem=()=>{
 
     const getProblemDetails=async()=>{
       console.warn(params)
-      let result=await fetch(`http://35.154.216.31:8080/getProblem/${params.id}`);
+      let result=await fetch(`${api_url}/getProblem/${params.id}`);
       result= await result.json();
       console.warn(result)
       setProblem(result);
@@ -57,7 +59,7 @@ const SolveProblem=()=>{
         };
     
         try {
-          const { data } = await axios.post('http://35.154.216.31:8080/run', payload);
+          const { data } = await axios.post(`${api_url}/run`, payload);
           console.log(data);
           setOutput("Output: "+data.output);
         } catch (error) {
@@ -74,7 +76,7 @@ const SolveProblem=()=>{
         };
     
         try {
-          const { data } = await axios.post(`http://35.154.216.31:8080/submit/${params.id}`, payload);
+          const { data } = await axios.post(`${api_url}/submit/${params.id}`, payload);
           console.log(data);
           setOutput("Status: "+data.message);
         } catch (error) {

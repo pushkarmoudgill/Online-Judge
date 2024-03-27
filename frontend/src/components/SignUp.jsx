@@ -3,6 +3,8 @@ import React ,{useEffect,useState}from "react";
 import { useNavigate } from "react-router-dom";
 
 const SignUp=()=>{
+    const api_url=import.meta.env.VITE_BACKEND_URL;
+
     const[name,setName]=useState("");
     const[password,setPassword]=useState("");
     
@@ -17,7 +19,7 @@ const SignUp=()=>{
     //         },[])
     const collectData=async()=>{
         console.warn(name,email,password);
-        let result =await fetch('http://35.154.216.31:8080/register',{
+        let result =await fetch(`${api_url}/register`,{
             method:'post',
             body:JSON.stringify({name,email,password}),
             headers:{

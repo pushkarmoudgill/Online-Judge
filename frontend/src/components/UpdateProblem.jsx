@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 const UpdateProblem = () => {
 
+  const api_url=import.meta.env.VITE_BACKEND_URL;
 
     const [problem_name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -25,7 +26,7 @@ const UpdateProblem = () => {
 
       const getProblemDetails=async()=>{
         console.warn(params);
-        let result=await fetch(`http://localhost:8080/getProblem/${params.id}`);
+        let result=await fetch(`${api_url}/getProblem/${params.id}`);
         result =await result.json();
          setName(result.problem_name);
          setDescription(result.description);
@@ -73,7 +74,7 @@ const UpdateProblem = () => {
   
     //   console.log("II",testcaseInput);
     //   console.log("OO",testcaseOutput);
-    let result = await fetch(`http://localhost:8080/update/${params.id}/${params.userid}`,{
+    let result = await fetch(`${api_url}/update/${params.id}/${params.userid}`,{
         method:"Put",
           body: JSON.stringify({
           problem_name,

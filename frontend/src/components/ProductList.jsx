@@ -2,25 +2,28 @@ import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
 //import { Button } from "@material-tailwind/react";
 
-let userId = JSON.parse(localStorage.getItem("user"));
-    userId = userId.user._id;
+
     
 const ProductList = () => {
-  const [products, setProducts] = useState([]);
+  const api_url=import.meta.env.VITE_BACKEND_URL;
 
+  const [products, setProducts] = useState([]);
+  let userId = JSON.parse(localStorage.getItem("user"));
+  console.log(userId);
+      userId = userId.user._id;
   useEffect(() => {
     getProducts();
   }, [])
 
   const getProducts = async () => {
-    let result = await fetch('http://35.154.216.31:8080/getAllProblems');
+    let result = await fetch(`${api_url}/getAllProblems`);
     result = await result.json();
     setProducts(result.problems);
   }
 
   const deleteProblem=async(id)=>{
     console.warn("uu",userId);
-    let result = await fetch(`http://35.154.216.31:8080/problem/${id}/${userId}`,{
+    let result = await fetch(`${api_url}/problem/${id}/${userId}`,{
      method:"Delete"
     });
     result=await result.json();

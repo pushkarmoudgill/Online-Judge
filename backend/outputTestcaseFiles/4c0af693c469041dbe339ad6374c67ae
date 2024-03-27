@@ -1,0 +1,30 @@
+mpmQmzgmsQfC5ba/69tM6MPChBzrl/XWtkLBi4d+
+
+
+cfQqXo/fAgjjiKwwsV4IzhMeZ9CmFXZTKWW0WhTM
+
+
+
+/s6Kv9W3rrBavbea2rxjNwRKioUrWv42Y9J9MyUQ
+
+
+W6IlTWWNZocKJv+RtsR8T6IL+deGXxgIs9aKvGuA
+
+d+gsrnJsnC3uMxzBKmeCZ5Xvd5ZOAJnSdHGDHrYt
+
+
+kMYkmV4J8Zfv06EAqjyz7FJ3J6TN289Rf/+FZ5If
+
+give and learn
+
+aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/w0c1h5i9
+
+
+give learn
+
+
+
+
+aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/w0c1h5i9
+
+sudo usermod -aG docker ec2-user

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Login=()=>{
+  const api_url=import.meta.env.VITE_BACKEND_URL;
     const [email,setEmail]=React.useState('');
     const [password,setPassword]=React.useState('');
     const navigate =useNavigate();
@@ -15,7 +16,7 @@ const auth =localStorage.getItem('user');
     },[])
     const handleLogin= async()=>{
         console.warn(email,password)
-        let result =await fetch('http://35.154.216.31:8080/login',{
+        let result =await fetch(`${api_url}/login`,{
            method:'post',
            body:JSON.stringify({email,password}),
            headers:{
@@ -32,6 +33,7 @@ const auth =localStorage.getItem('user');
         console.warn(result)
 
        if(result.user){
+       // console(result.user);
             localStorage.setItem("user", JSON.stringify(result));
            // localStorage.removeItem('user.password');
             navigate("/problems");

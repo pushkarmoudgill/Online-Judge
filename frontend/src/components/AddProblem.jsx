@@ -59,7 +59,7 @@
 //       //const luser=JSON.parse(userId.user)
 //       const id=userId.user._id;
 
-//       let result =await fetch('http://35.154.216.31:8080/addProblem',{
+//       let result =await fetch('http://localhost:8080/addProblem',{
 //         method:'post',
 //         body:JSON.stringify({name,description,constraint,input,output,id,inputfile,outputfile}),
 //         headers:{
@@ -116,6 +116,8 @@ import { useNavigate } from "react-router-dom";
 
 
 const AddProblem = () => {
+
+  const api_url=import.meta.env.VITE_BACKEND_URL;
   const [problem_name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [constraint, setConstraint] = useState("");
@@ -167,7 +169,7 @@ const AddProblem = () => {
     console.log("II",testcaseInput);
     console.log("OO",testcaseOutput);
 
-    const result = await fetch("http://35.154.216.31:8080/addProblem", {
+    const result = await fetch(`${api_url}/addProblem`, {
       method: "post",
       body: JSON.stringify({
         problem_name,
